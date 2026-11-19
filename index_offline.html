@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ЛР № 2 — розв’язання СЛАР методом Гаусса, Якобі, Зейделя; варіант 1.">
+  <title>ЛР № 2 · Методи розв’язання СЛАР</title>
+  <style>:root{--bg:#f5f7fb;--paper:#fff;--ink:#21314d;--text:#31435e;--muted:#7a88a0;--border:#e4e9f2;--navy:#1b2b49;--purple:#6554d9;--green:#0d8d88;--gold:#e0a24b;--error:#aa344b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}button,select,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #b5aeff;outline-offset:2px}.topbar{height:70px;background:#fff;border-bottom:1px solid var(--border)}.top-inner{max-width:1410px;padding:0 28px;margin:auto;display:flex;align-items:center;gap:13px;height:100%}.symbol{height:38px;width:38px;border-radius:10px;display:grid;place-items:center;background:var(--navy);color:white;font-weight:800;font-size:18px}.brand{font-size:14px;font-weight:800;line-height:1.2}.brand small{display:block;font-size:11px;color:var(--muted);margin-top:4px;font-weight:500}.top-spacer{flex:1}.top-meta{color:#677995;border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:12px}.container{max-width:1410px;padding:29px 28px 28px;margin:auto}.eyebrow{color:var(--purple);font-size:10px;letter-spacing:2px;font-weight:850;text-transform:uppercase;margin:0 0 7px}.intro{display:flex;justify-content:space-between;align-items:center;margin:4px 0 21px}.intro h1{font-size:31px;letter-spacing:-.8px;line-height:1.22;margin:0}.intro .lead{font-size:13px;color:var(--muted);margin:8px 0 0}.formula-bubble{font:800 40px Georgia,serif;color:#d1d6e6;margin-right:34px}.panel,.controlbar,.stat,.plot-card{background:var(--paper);border:1px solid var(--border);border-radius:12px;box-shadow:0 6px 20px #21355306}.controlbar{display:flex;align-items:end;flex-wrap:wrap;gap:17px;padding:17px 20px}.control{display:flex;flex-direction:column;gap:7px}.control label{font-size:11px;color:var(--muted);font-weight:750}.control select,.control input{background:#fbfcfe;border:1px solid var(--border);border-radius:7px;padding:8px 10px;height:38px;color:var(--ink);font-weight:650;min-width:122px}.control .segmented{display:flex;background:#f1f4f9;border-radius:8px;padding:4px;gap:2px}.seg{border:0;background:transparent;min-width:53px;height:30px;border-radius:6px;color:#7987a2;font-weight:750}.seg.active{background:white;color:var(--purple);box-shadow:0 1px 7px #34425b26}.actions{margin-left:auto;display:flex;gap:7px}.btn{border:1px solid transparent;border-radius:8px;padding:9px 12px;min-height:37px;background:#f1f1fa;color:var(--ink);font-size:12px;font-weight:750}.btn:hover{filter:brightness(.96)}.btn.primary{background:var(--navy);color:white}.btn.outline{background:white;border-color:var(--border)}.btn.purple{color:var(--purple);background:#f0edff}.btn.small{padding:7px 9px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:16px 0}.stat{padding:17px 19px}.stat>span{font-size:11px;color:var(--muted);font-weight:700;display:block}.stat strong{font-size:23px;display:block;letter-spacing:-.5px;margin-top:3px;font-variant-numeric:tabular-nums}.stat small{font-size:10px;color:#9ba7b8;display:block}.alert{border:1px solid #dfecd3;background:#f3f8ef;color:#426b3f;padding:11px 15px;border-radius:9px;font-size:12px;margin:14px 0;display:flex;gap:9px}.alert.warn{border-color:#f4ddaa;background:#fffaec;color:#8d6722}.alert.error{border-color:#f0c8d2;background:#fff3f5;color:#9e344f}.panel{padding:22px 23px;margin-bottom:16px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:14px}.panel-head h2{font-size:19px;margin:0;line-height:1.3}.panel-head p{font-size:11px;letter-spacing:1.4px;color:var(--purple);font-weight:850;margin:0 0 4px}.muted{color:var(--muted);font-size:12px}.tag{font-size:11px;border-radius:18px;background:#eef1f8;padding:7px 11px;color:#6c7e96;font-weight:600}.matrix-shell{overflow:auto;background:#fbfcff;border:1px solid var(--border);border-radius:9px;padding:10px;max-height:440px;min-height:90px}.matrix-grid{border-collapse:separate;border-spacing:3px;font-variant-numeric:tabular-nums;margin:auto;white-space:nowrap;font:12px ui-monospace,SFMono-Regular,Consolas,monospace}.matrix-grid th{position:sticky;top:0;background:#f1f4fa;z-index:2}.matrix-grid td,.matrix-grid th{padding:7px 10px;text-align:right;border-radius:4px;min-width:75px;background:white;color:#596b87;border:1px solid #eaf0f7}.matrix-grid td.highlight{background:#e9e3ff;border:1px solid #8e7ae7;color:#4b39a9;font-weight:800}.matrix-grid td.choose{background:#fff1da;border:1px solid #e9b455;color:#96631a}.matrix-grid td.zero{color:#abb5c7;background:#f7f9fc}.matrix-grid td.rhs{border-left:3px solid #ccd4e2;color:#233954;font-weight:700}.matrix-grid td.negative{color:#ad5a66}.matrix-grid td.focus{background:#d8f1ed;border-color:#79ccc3}.legend{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin:10px 0 5px;color:#6d7c94;font-size:11px}.legend span{display:inline-flex;align-items:center;gap:6px}.dash{width:19px;border-top:3px solid #aaa;display:inline-block}.dash.exact{border-color:var(--navy);border-top-style:dashed}.dash.jacobi{border-color:var(--purple)}.dash.seidel{border-color:var(--green)}.dash.gauss{border-color:var(--gold)}.stepbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}.stepbar select{padding:8px;border-radius:7px;background:#fff;border:1px solid var(--border)}.stepbar .step-label{font-size:12px;font-weight:700;flex:1;min-width:210px}.stepbar .hint{font-size:11px;color:var(--muted)}.plot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.plot-card{min-width:0;padding:16px 15px 8px}.plot-card h3{font-size:15px;margin:0}.plot-card .sub{font-size:11px;color:var(--muted);margin:3px 0 0}.plot-wrap{width:100%;margin-top:5px}.plot{display:block;width:100%;height:auto}.tick{font:11px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#8c98ad}.axis{font:700 12px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;fill:#73849a}.section-title{margin:29px 0 13px}.section-title h2{font-size:21px;margin:0}.section-title p{margin:3px 0 0;color:var(--muted);font-size:12px}.table-wrap{overflow:auto}.table{border-collapse:collapse;width:100%;font-size:12px;font-variant-numeric:tabular-nums}.table th{background:#f2f5fa;color:#697996;font-weight:750;text-align:left;padding:11px 12px}.table td{border-bottom:1px solid var(--border);padding:11px 12px;white-space:nowrap}.table td:first-child{font-weight:750}.table tr.focus td{background:#f6f3ff}.ok{color:#0d8d68;font-weight:800}.bad{color:#b45062;font-weight:800}.two-cols{display:grid;grid-template-columns:1fr 1fr;gap:15px}.helper{font-size:11px;color:var(--muted)}textarea{font:12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;border:1px solid var(--border);border-radius:8px;background:#f9fbfe;color:#43516a;padding:12px;width:100%;resize:vertical;min-height:150px}pre.code{font:12px ui-monospace,SFMono-Regular,Consolas,monospace;margin:0;padding:10px;background:#f4f6fa;border-radius:8px;overflow:auto}.divider{border-top:1px solid var(--border);margin:13px 0}footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px;font-size:11px;color:#9ba5b5;margin:24px 0 0}@media(max-width:1100px){.controlbar{gap:12px}.actions{margin-left:0}.stats{grid-template-columns:repeat(2,1fr)}.two-cols{grid-template-columns:1fr}}@media(max-width:680px){.top-inner{padding:0 14px}.top-meta{font-size:10px}.container{padding:20px 12px}.intro h1{font-size:23px}.formula-bubble{display:none}.panel{padding:14px}.controlbar{padding:14px}.control{flex:1;min-width:calc(50% - 8px)}.control:first-child{min-width:100%}.control .segmented{width:100%}.control .seg{flex:1}.control input,.control select{min-width:0;width:100%}.actions{width:100%;flex-wrap:wrap}.actions .btn{flex:1}.stats{gap:9px}.stat{padding:12px}.stat strong{font-size:19px}.plot-grid{grid-template-columns:1fr}.panel-head h2{font-size:17px}.stepbar .step-label{min-width:100%}}
+</style>
+  
+</head>
+<body>
+<header class="topbar"><div class="top-inner"><div class="symbol">Ax</div><div class="brand">Лабораторна робота № 2<small>Прямі та ітераційні методи · Варіант 1</small></div><div class="top-spacer"></div><span class="top-meta">Бойог Сергій Степанович</span></div></header>
+<main class="container">
+  <section class="intro"><div><p class="eyebrow">ІНТЕРАКТИВНА ЧИСЕЛЬНА ЛАБОРАТОРІЯ</p><h1>Розв’язання систем лінійних рівнянь</h1><p class="lead">Метод Гаусса з вибором головного елемента, методи Якобі та Зейделя.</p></div><div class="formula-bubble" aria-hidden="true">Ax = b</div></section>
+  <section class="controlbar" aria-label="Керування обчисленнями">
+    <div class="control"><label>Розмір матриці</label><div class="segmented" id="sizes" role="group" aria-label="Розмір системи"><button class="seg active" data-size="5" aria-pressed="true">5×5</button><button class="seg" data-size="10" aria-pressed="false">10×10</button><button class="seg" data-size="20" aria-pressed="false">20×20</button></div></div>
+    <div class="control"><label for="dominance">Діагональна перевага d</label><select id="dominance"><option value="1">d = 1</option><option value="0.1">d = 0,1</option></select></div>
+    <div class="control"><label for="eps">Точність ε</label><select id="eps"><option value="1e-6">10⁻⁶</option><option value="1e-8">10⁻⁸</option><option value="1e-10" selected>10⁻¹⁰</option><option value="1e-12">10⁻¹²</option></select></div>
+    <div class="control"><label for="max-iters">Макс. ітерацій</label><input id="max-iters" type="number" min="20000" max="100000" step="1000" value="20000"></div>
+    <div class="actions"><button class="btn primary" id="run">Розрахувати</button><button class="btn outline" id="generate">Відновити варіант</button></div>
+  </section>
+  <div id="notice" class="alert" role="status"><strong>✓</strong><span>Для варіанта № 1 використано g(i,j) = sin(i + j) та x*i = n − i + 1 (індекси від 1).</span></div>
+  <section class="stats" aria-live="polite">
+    <article class="stat"><span>Розмір системи</span><strong id="st-n">5 × 5</strong><small id="st-d">d = 1</small></article>
+    <article class="stat"><span>Метод Гаусса · нев'язка</span><strong id="st-g">—</strong><small>‖Ax − b‖₂</small></article>
+    <article class="stat"><span>Якобі · ітерації</span><strong id="st-j">—</strong><small id="st-jstatus">Точність ε = 10⁻¹⁰</small></article>
+    <article class="stat"><span>Зейдель · ітерації</span><strong id="st-s">—</strong><small id="st-sstatus">Точність ε = 10⁻¹⁰</small></article>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><div><p>МАТРИЦЯ СИСТЕМИ</p><h2>Покрокове зведення до трикутного вигляду</h2></div><span id="matrix-status" class="tag">Початкова матриця [A | b]</span></div>
+    <div id="matrix" class="matrix-shell" role="region" aria-label="Матриця та головні елементи"></div>
+    <div class="stepbar"><label class="hint" for="anim-method">Анімація</label><select id="anim-method"><option value="gauss">Гаусс</option><option value="jacobi">Якобі</option><option value="seidel">Зейдель</option></select><button class="btn purple" id="play">▶ Відтворити</button><button class="btn outline" id="next">Наступний крок</button><button class="btn outline" id="reset">↺ Початок</button><div id="step-label" class="step-label">Оберіть метод і запустіть анімацію</div><label class="hint" for="speed">Швидкість</label><select id="speed"><option value="350">Швидко</option><option value="650" selected>Звичайна</option><option value="1050">Повільно</option></select></div>
+    <p class="helper">Під час Гаусса виділяється головний елемент і показано перестановку/виключення. Для Якобі та Зейделя відображаються поточні наближення x та норма нев'язки.</p>
+  </section>
+  <section class="section-title"><p class="eyebrow">ПОРІВНЯННЯ 3 × 2</p><h2>Шість графіків</h2><p>Три графіки збіжності у логарифмічному масштабі та три графіки компонент розв’язку. Перемикайте d для аналізу впливу діагональної переваги.</p></section>
+  <section id="plot-grid" class="plot-grid" aria-label="Шість графіків">
+    <article class="plot-card" data-card="conv-5"><h3>Збіжність · 5 рівнянь</h3><p class="sub">Логарифм ‖Ax − b‖ за ітераціями</p><div class="plot-wrap"></div></article>
+    <article class="plot-card" data-card="sol-5"><h3>Розв’язок · 5 рівнянь</h3><p class="sub">Компоненти xᵢ трьома методами і x*</p><div class="plot-wrap"></div></article>
+    <article class="plot-card" data-card="conv-10"><h3>Збіжність · 10 рівнянь</h3><p class="sub">Логарифм ‖Ax − b‖ за ітераціями</p><div class="plot-wrap"></div></article>
+    <article class="plot-card" data-card="sol-10"><h3>Розв’язок · 10 рівнянь</h3><p class="sub">Компоненти xᵢ трьома методами і x*</p><div class="plot-wrap"></div></article>
+    <article class="plot-card" data-card="conv-20"><h3>Збіжність · 20 рівнянь</h3><p class="sub">Логарифм ‖Ax − b‖ за ітераціями</p><div class="plot-wrap"></div></article>
+    <article class="plot-card" data-card="sol-20"><h3>Розв’язок · 20 рівнянь</h3><p class="sub">Компоненти xᵢ трьома методами і x*</p><div class="plot-wrap"></div></article>
+  </section>
+  <div class="legend"><span><i class="dash exact"></i>Точний розв'язок x*</span><span><i class="dash gauss"></i>Гаусс</span><span><i class="dash jacobi"></i>Якобі</span><span><i class="dash seidel"></i>Зейдель</span></div>
+  <section class="panel" style="margin-top:18px"><div class="panel-head"><div><p>АНАЛІТИЧНЕ ТЕСТУВАННЯ</p><h2>Порівняння методів і діагональної переваги</h2></div><button class="btn outline small" id="export">↓ Завантажити CSV</button></div><div class="table-wrap"><table class="table"><thead><tr><th>n</th><th>d</th><th>Метод</th><th>Ітерації</th><th>‖Ax−b‖₂</th><th>‖x−x*‖₂</th><th>Час, мс</th><th>Статус</th></tr></thead><tbody id="results"></tbody></table></div><p class="helper">Час залежить від браузера й пристрою. Розрахунок за ‖Ax−b‖₂ ≤ ε; «—» у похибці означає, що для імпортованої системи x* невідомий.</p></section>
+  <section class="two-cols">
+    <article class="panel"><div class="panel-head"><div><p>ВЛАСНІ ДАНІ</p><h2>Ввести або завантажити A та b</h2></div><button class="btn outline small" id="fill-json">Заповнити з поточної</button></div><p class="muted">Формат JSON з масивами A (матриця n×n), b (n елементів), необов'язковий xStar. Підтримуються n = 5, 10, 20.</p><textarea id="json-input" spellcheck="false" placeholder='{"A": [[...]], "b": [...], "xStar": [...]}'></textarea><div class="stepbar"><input id="file-input" type="file" accept=".json,application/json"><button class="btn primary" id="load-json">Застосувати дані</button></div><p id="json-error" class="helper" role="alert"></p></article>
+    <article class="panel"><div class="panel-head"><div><p>КРИТИЧНИЙ АНАЛІЗ AI</p><h2>Нульовий головний елемент</h2></div></div><p class="muted">Перевірка вимоги методички: у математично еквівалентній системі створюється a₁₁ = 0. Наївний Гаусс без вибору головного елемента не може продовжити обчислення, а алгоритм із перестановкою рядків працює.</p><button class="btn purple" id="zero-pivot">Показати збій і виправлення</button><div class="divider"></div><div id="zero-result" class="helper">Натисни кнопку для запуску експерименту.</div><p class="helper">Для sin(i+j) проста перестановка перших двох рядків не гарантує a₁₁ = 0, тому використано еквівалентне елементарне перетворення рядка.</p></article>
+  </section>
+  <footer><span>Лабораторна робота № 2 · Варіант 1 · Бойог Сергій Степанович</span><span>Чисельні методи · JavaScript · SVG · без бібліотечних розв’язувачів</span></footer>
+</main>
+<script>
+/** Варіант №1, індекси i,j у формулах починаються з одиниці. */
+const sizes = [5, 10, 20];
+const dValues = [1, 0.1];
+
+function knownSolution(n) {
+  return Array.from({length:n}, (_, z) => n-z); // x*_i = n-i+1, i=z+1
+}
+function multiply(A, x) {
+  return A.map(row => row.reduce((s, a, j) => s + a*x[j], 0));
+}
+function generateSystem(n, d=1) {
+  if (!sizes.includes(n)) throw new Error('Доступні розміри: 5, 10 або 20.');
+  if (!(d > 0) || !Number.isFinite(d)) throw new Error('Параметр d має бути додатним.');
+  const A = Array.from({length:n}, (_, i) => Array.from({length:n}, (_, j) => i===j ? 0 : Math.sin(i+j+2)));
+  for (let i=0;i<n;i++) A[i][i]=A[i].reduce((s,a,j)=>s+(i===j?0:Math.abs(a)),0)+d;
+  const xStar=knownSolution(n);
+  return {A,b:multiply(A,xStar),xStar,n,d,generated:true};
+}
+function validateSystem(input) {
+  if (!input || !Array.isArray(input.A) || !Array.isArray(input.b)) throw new Error('Потрібен об’єкт із матрицею A та вектором b.');
+  const n=input.A.length;
+  if (!sizes.includes(n)) throw new Error('Матриця має розмір 5×5, 10×10 або 20×20.');
+  if (input.b.length!==n || input.A.some(row=>!Array.isArray(row)||row.length!==n)) throw new Error('Несумісні розміри A та b.');
+  if (input.A.some(row=>row.some(v=>typeof v!=='number'||!Number.isFinite(v))) || input.b.some(v=>typeof v!=='number'||!Number.isFinite(v))) throw new Error('Усі елементи A і b повинні бути скінченними числами.');
+  const xStar = input.xStar===undefined||input.xStar===null ? null : input.xStar;
+  if(xStar && (!Array.isArray(xStar)||xStar.length!==n||xStar.some(v=>typeof v!=='number'||!Number.isFinite(v)))) throw new Error('Вектор xStar має містити рівно n чисел.');
+  return { A:input.A.map(r=>r.slice()), b:input.b.slice(), xStar:xStar ? xStar.slice():null, n, generated:false, d:null };
+}
+function diagonalDominance(A, tolerance=1e-12) {
+  const margins = A.map((row,i)=>Math.abs(row[i])-row.reduce((s,v,j)=>s+(j===i?0:Math.abs(v)),0));
+  return {margins, strict:margins.every(v=>v>tolerance), weak:margins.every(v=>v>=-tolerance), minMargin:Math.min(...margins)};
+}
+function norm2(vector) { return Math.hypot(...vector); }
+function residual(A,b,x) {
+  return norm2(multiply(A,x).map((v,i)=>v-b[i]));
+}
+function errorNorm(x,xStar) {return xStar ? norm2(x.map((v,i)=>v-xStar[i])):null;}
+
+/**
+ * Доказова тестова система з a11=0. Операція R1 <- R1 - c·R2
+ * (одночасно для A та b) не змінює розв’язок системи.
+ * Просте переставлення перших двох рядків не занулює a11 для sin(i+j).
+ */
+function makeZeroPivotCase(base) {
+  const data=validateSystem(base);
+  if(Math.abs(data.A[1][0])<1e-14) throw new Error('Другий рядок не підходить для створення нульового головного елемента.');
+  const c=data.A[0][0]/data.A[1][0];
+  data.A[0]=data.A[0].map((v,j)=>v-c*data.A[1][j]);
+  data.A[0][0]=0; // логічно нульова різниця, усуваємо дрібний шум double
+  data.b[0] -= c*data.b[1];
+  data.xStar = base.xStar ? base.xStar.slice():null;
+  return data;
+}
+
+function parseImportedText(text) {
+  let data;
+  try { data=JSON.parse(text); }
+  catch { throw new Error('Файл має містити коректний JSON: {"A": [...], "b": [...], "xStar": [...]}'); }
+  return validateSystem(data);
+}
+
+const clock=()=>performance.now();
+const DEFAULT_EPS=1e-10;
+const DEFAULT_MAX=20000;
+
+function gaussWithoutPivot(input) {
+  const {A,b,n}=validateSystem(input);const M=A.map(row=>row.slice());const y=b.slice();
+  for(let k=0;k<n;k++) {
+    if(Math.abs(M[k][k])<1e-14) throw new Error(`Метод Гаусса без вибору: нульовий головний елемент у рядку ${k+1}.`);
+    for(let i=k+1;i<n;i++) {
+      const f=M[i][k]/M[k][k];
+      for(let j=k+1;j<n;j++) M[i][j]-=f*M[k][j];
+      M[i][k]=0; y[i]-=f*y[k];
+    }
+  }
+  return backSubstitute(M,y);
+}
+function backSubstitute(A,b,tolerance=1e-13) {
+  const n=b.length, x=Array(n).fill(0);
+  for(let i=n-1;i>=0;i--) {
+    const scale=Math.max(1,...A[i].map(Math.abs));
+    if(Math.abs(A[i][i])<=tolerance*scale) throw new Error('Вироджена або чисельно вироджена матриця: неможливий зворотний хід.');
+    let z=b[i];for(let j=i+1;j<n;j++)z-=A[i][j]*x[j];
+    x[i]=z/A[i][i];
+  }
+  return x;
+}
+/** Частковий вибір головного елемента за стовпцем з перевіркою масштабу. */
+function gaussPivot(input, {trace=false}={}) {
+  const {A,b,xStar,n}=validateSystem(input);const start=clock();
+  const M=A.map(r=>r.slice());const rhs=b.slice(); const steps=[];
+  let swaps=0;let operations=0;
+  function save(type,k,selectedRow=null,note=''){
+    if(trace)steps.push({type,k,selectedRow, note, A:M.map(r=>r.slice()), b:rhs.slice()});
+  }
+  save('start',0,null,'Початкова розширена матриця [A|b]');
+  for(let k=0;k<n;k++) {
+    let pivot=k;
+    for(let i=k+1;i<n;i++)if(Math.abs(M[i][k])>Math.abs(M[pivot][k]))pivot=i;
+    save('pivot',k,pivot,`Пошук максимального |aᵢ,${k+1}| у стовпці ${k+1}`);
+    const maxCell=Math.abs(M[pivot][k]);
+    const scale=Math.max(...M.map(row=>Math.max(...row.map(Math.abs))));
+    if(maxCell<=1e-13*Math.max(scale,Number.MIN_VALUE))throw new Error(`Вироджена або майже вироджена матриця: стовпець ${k+1}.`);
+    if(pivot!==k) {
+      [M[k],M[pivot]]=[M[pivot],M[k]];
+      [rhs[k],rhs[pivot]]=[rhs[pivot],rhs[k]];
+      swaps++;
+      save('swap',k,k,`Переставляю рядки ${k+1} та ${pivot+1}`);
+    }
+    for(let i=k+1;i<n;i++) {
+      const factor=M[i][k]/M[k][k];
+      if(factor===0)continue;
+      M[i][k]=0;
+      for(let j=k+1;j<n;j++) M[i][j]-=factor*M[k][j];
+      rhs[i]-=factor*rhs[k];operations++;
+    }
+    save('eliminate',k,k,`Занулюю елементи під головним у стовпці ${k+1}`);
+  }
+  const x=backSubstitute(M,rhs);
+  const timeMs=clock()-start;
+  save('result',n-1,n-1,'Зворотний хід завершено');
+  return {method:'Гаусс',x,iterations:0,steps,timeMs,swaps,operations,
+    residual:residual(A,b,x), error:errorNorm(x,xStar),converged:true,
+    reason:'Розв’язок знайдено прямим методом',history:[]};
+}
+
+function iterativeSolve(input, method, {eps=DEFAULT_EPS,maxIterations=DEFAULT_MAX, traceEvery=1}={}) {
+  const {A,b,xStar,n}=validateSystem(input);
+  if(!['jacobi','seidel'].includes(method)) throw new Error('Невідомий ітераційний метод.');
+  if(!(eps>0) || !Number.isFinite(eps))throw new Error('ε має бути додатним скінченним числом.');
+  if(!Number.isInteger(maxIterations)||maxIterations<1||maxIterations>100000)throw new Error('Кількість ітерацій має бути в межах 1–100000.');
+  if(A.some((r,i)=>Math.abs(r[i])<1e-14))throw new Error(`Нульовий діагональний елемент: ${method==='jacobi'?'Якобі':'Зейдель'} неможливий без перестановки рівнянь.`);
+  const start=clock(), name=method==='jacobi'?'Якобі':'Зейдель';
+  const dominance=diagonalDominance(A);
+  const history=[{iteration:0,residual:residual(A,b,Array(n).fill(0)),x:Array(n).fill(0)}];
+  let x=Array(n).fill(0), iterations=0, r=history[0].residual;
+  let reason='Досягнуто ліміту ітерацій', converged=r<=eps;
+  if(converged)reason='Початкове наближення задовольняє критерій';
+  for(let k=1; k<=maxIterations && !converged; k++) {
+    const old=x.slice();
+    if(method==='jacobi') {
+      const next=Array(n).fill(0);
+      for(let i=0;i<n;i++) {
+        let s=b[i];for(let j=0;j<n;j++)if(j!==i)s-=A[i][j]*old[j];
+        next[i]=s/A[i][i];
+      }
+      x=next;
+    } else {
+      for(let i=0;i<n;i++) {
+        let s=b[i];
+        for(let j=0;j<n;j++)if(j!==i)s-=A[i][j]*(j<i?x[j]:old[j]);
+        x[i]=s/A[i][i];
+      }
+    }
+    r=residual(A,b,x);iterations=k;
+    if(k%Math.max(1,traceEvery)===0 || r<=eps || k===maxIterations)history.push({iteration:k,residual:r,x:x.slice()});
+    if(!Number.isFinite(r) || x.some(v=>!Number.isFinite(v)) || r>1e100) {
+      reason='Розбіжність або переповнення';break;
+    }
+    if(r<=eps){converged=true;reason='Норма нев’язки ≤ ε';break;}
+    if(k>=5000 && Math.abs(old.reduce((s,v,i)=>s+Math.abs(v-x[i]),0))===0){reason='Стагнація чисел double';break;}
+  }
+  const timeMs=clock()-start;
+  return {method:name,x,iterations,timeMs,converged,reason,residual:r,error:errorNorm(x,xStar),history,dominance};
+}
+const jacobi=(input,opts={})=>iterativeSolve(input,'jacobi',opts);
+const seidel=(input,opts={})=>iterativeSolve(input,'seidel',opts);
+function analyze(input,opts={}) {
+ const data=validateSystem(input);
+ const dominance=diagonalDominance(data.A);
+ const gauss=gaussPivot(data,opts.gauss||{});
+ const j=jacobi(data,opts.iteration||{}),s=seidel(data,opts.iteration||{});
+ return {gauss,jacobi:j,seidel:s,dominance,system:data};
+}
+
+/** SVG без сторонніх бібліотек. Усі межі визначаємо за поточними даними. */
+const C={jacobi:'#6554D9',seidel:'#0D8D88',gauss:'#E0A24B',exact:'#24395B'};
+const v=(x,p=2)=>Number.isFinite(x)?Number(x.toFixed(p)).toLocaleString('uk-UA'):'—';
+function bound(nums,fraction=.12){
+ const finite=nums.filter(Number.isFinite);
+ if(!finite.length)return [-1,1];
+ const min=Math.min(...finite),max=Math.max(...finite),w=Math.max(max-min,Math.max(1e-6,Math.abs(max)*.03));
+ return [min-w*fraction,max+w*fraction];
+}
+function frame(SMALL){ const w=SMALL?570:1000,h=SMALL?255:385;
+ return {w,h,L:SMALL?56:75,T:SMALL?21:32,R:SMALL?15:28,B:SMALL?37:48}; }
+function render(svg,caption,view,body){
+ svg.innerHTML=`<svg class="plot" viewBox="0 0 ${view.w} ${view.h}" role="img" aria-label="${caption}" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+}
+function axis(vw,xmin,xmax,ymin,ymax,yFormatter,integerX=false){
+ const W=vw.w-vw.L-vw.R,H=vw.h-vw.T-vw.B;
+ const xp=x=>vw.L+(x-xmin)/(xmax-xmin)*W;
+ const yp=y=>vw.T+(ymax-y)/(ymax-ymin)*H;
+ let s='';
+ for(let i=0;i<=4;i++){
+  const y=vw.T+i*H/4,val=ymax+(ymin-ymax)*i/4;
+  s+=`<line x1="${vw.L}" x2="${vw.w-vw.R}" y1="${y}" y2="${y}" stroke="#E6EBF3" stroke-dasharray="3 5"/><text class="tick" x="${vw.L-10}" y="${y+4}" text-anchor="end">${yFormatter(val)}</text>`;
+ }
+ for(let i=0;i<=4;i++){
+  const x=vw.L+i*W/4,val=xmin+(xmax-xmin)*i/4;
+  s+=`<line x1="${x}" x2="${x}" y1="${vw.T}" y2="${vw.h-vw.B}" stroke="#E6EBF3" stroke-dasharray="3 5"/><text class="tick" x="${x}" y="${vw.h-vw.B+20}" text-anchor="middle">${integerX?Math.round(val):v(val,1)}</text>`;
+ }
+ s+=`<line x1="${vw.L}" x2="${vw.w-vw.R}" y1="${vw.h-vw.B}" y2="${vw.h-vw.B}" stroke="#A0ADBF"/>`;
+ s+=`<text class="axis" x="${vw.w-vw.R}" y="${vw.h-3}" text-anchor="end">${integerX?'Індекс компоненти i':'Номер ітерації'}</text>`;
+ return {xp,yp,s};
+}
+function line(arr,xp,yp,color,dashed=false,width=3){
+ let d='',open=false;
+ for(const p of arr){
+  const x=xp(p.x),y=yp(p.y);
+  if(!Number.isFinite(x)||!Number.isFinite(y)){open=false;continue;}
+  d+=`${open?'L':'M'}${x.toFixed(2)} ${y.toFixed(2)} `;open=true;
+ }
+ return `<path d="${d}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linejoin="round" stroke-linecap="round" ${dashed?'stroke-dasharray="7 5"':''}/>`;
+}
+/** Y — логарифм (десятковий) нев'язки; координати відновлюємо підписами 10^k. */
+function drawConvergence(node,jacobi,seidel,{small=false,partialJ=null,partialS=null}={}) {
+ const vw=frame(small);
+ const j=partialJ ?? jacobi.history, s=partialS ?? seidel.history;
+ const ys=[...j,...s].map(p=>Math.log10(Math.max(Number.MIN_VALUE,p.residual)));
+ const [ymin,ymax]=bound(ys,.10);
+ const xEnd=Math.max(1,...j.map(p=>p.iteration),...s.map(p=>p.iteration));
+ const {xp,yp,s:axes}=axis(vw,0,xEnd,ymin,ymax,z=>`10^${v(z,1)}`,false);
+ const project=arr=>arr.map(z=>({x:z.iteration,y:Math.log10(Math.max(Number.MIN_VALUE,z.residual))}));
+ let html=axes+line(project(j),xp,yp,C.jacobi)+line(project(s),xp,yp,C.seidel);
+ for(const [arr,color] of [[j,C.jacobi],[s,C.seidel]]){
+  const last=arr.at(-1);if(last)html+=`<circle cx="${xp(last.iteration)}" cy="${yp(Math.log10(Math.max(Number.MIN_VALUE,last.residual)))}" r="${small?4:6}" fill="${color}" stroke="white" stroke-width="2"><title>Ітерацій: ${last.iteration}, ||Ax−b||=${last.residual.toExponential(3)}</title></circle>`;
+ }
+ render(node,'Збіжність Якобі та Зейделя, логарифмічна шкала',vw,html);
+}
+/** Чотири криві, кожна за індексом компоненти i=1..n. */
+function drawSolutions(node,model,{small=false,shown=null}={}) {
+ const vw=frame(small),{system,gauss,jacobi,seidel}=model,n=system.n;
+ const j=shown?.jacobi??jacobi.x,s=shown?.seidel??seidel.x;
+ const curves=[{key:'exact',vector:system.xStar},{key:'gauss',vector:gauss.x},{key:'jacobi',vector:j},{key:'seidel',vector:s}].filter(item=>item.vector);
+ const yy=curves.flatMap(k=>k.vector);
+ const [ymin,ymax]=bound(yy,.11);
+ const {xp,yp,s:axes}=axis(vw,1,n,ymin,ymax,z=>v(z,1),true);
+ let html=axes;
+ for(const c of curves){
+  const points=c.vector.map((y,i)=>({x:i+1,y}));
+  html+=line(points,xp,yp,C[c.key],c.key==='exact',c.key==='exact'?small?3.0:4:small?2:2.4);
+  points.forEach((p,i)=>{html+=`<circle cx="${xp(p.x)}" cy="${yp(p.y)}" r="${c.key==='exact'?(small?3.5:4.5):(small?2.0:2.6)}" fill="${C[c.key]}" stroke="white" stroke-width="${c.key==='exact'?1.6:0.8}"><title>${c.key}, x${i+1}=${v(p.y,5)}</title></circle>`;});
+ }
+ render(node,'Точний розв’язок і результати Гаусса, Якобі, Зейделя',vw,html);
+}
+const chartColors=C;
+
+const $=s=>document.querySelector(s);
+const f=(x,p=3)=>x===null||x===undefined?'—':Number.isFinite(x)?Number(x.toFixed(p)).toLocaleString('uk-UA',{maximumFractionDigits:p,minimumFractionDigits:p}):'—';
+const sci=x=>x===null||x===undefined?'—':Number.isFinite(x)?x.toExponential(2):'—';
+const k=(n,d)=>`${n}|${d}`;
+let selected=5,d=1,eps=1e-10,maxIterations=20000;
+let custom=new Map(),results=new Map(),current=null,frameIndex=0,playToken=0,playing=false;
+
+function getSystem(n,di=d){return custom.get(k(n,di))||generateSystem(n,di);}
+function message(msg,type='ok'){
+ const node=$('#notice');node.className='alert'+(type==='warn'?' warn':type==='error'?' error':'');
+ node.innerHTML=`<strong>${type==='ok'?'✓':type==='warn'?'!':'×'}</strong><span></span>`;
+ node.querySelector('span').textContent=msg;
+}
+function options(){return {iteration:{eps,maxIterations},gauss:{trace:true}};}
+function model(n,di=d){return results.get(k(n,di));}
+function computeAll(){
+ stop();
+ const m=Number($('#max-iters').value);
+ if(!Number.isInteger(m)||m<20000||m>100000)throw new Error('Максимальна кількість ітерацій має бути від 20 000 до 100 000.');
+ maxIterations=m;eps=Number($('#eps').value);
+ const newResults=new Map();
+ for(const di of [1,.1])for(const n of sizes)newResults.set(k(n,di),analyze(getSystem(n,di),options()));
+ results=newResults;
+ current=model(selected);
+ updateAll();
+}
+function updateSizeButtons(){
+ document.querySelectorAll('button[data-size]').forEach(b=>{const yes=Number(b.dataset.size)===selected;b.classList.toggle('active',yes);b.setAttribute('aria-pressed',String(yes));});
+}
+function renderMatrix(snapshot=null){
+ const M=snapshot?.A??current.system.A,B=snapshot?.b??current.system.b,n=M.length;
+ let html='<table class="matrix-grid"><thead><tr><th>i / j</th>';
+ for(let j=0;j<n;j++)html+=`<th>${j+1}</th>`;
+ html+='<th>bᵢ</th></tr></thead><tbody>';
+ for(let i=0;i<n;i++){
+  html+=`<tr><th>${i+1}</th>`;
+  for(let j=0;j<n;j++){
+   const value=M[i][j];
+   let cls='';
+   if(snapshot?.type==='pivot' && j===snapshot.k && i===snapshot.selectedRow)cls='choose';
+   else if(snapshot && (snapshot.type==='swap'||snapshot.type==='eliminate') && i===snapshot.k && j===snapshot.k)cls='highlight';
+   else if(snapshot?.type==='eliminate' && j===snapshot.k && i>snapshot.k)cls='focus';
+   else if(Math.abs(value)<1e-12)cls='zero';
+   else if(value<0)cls='negative';
+   html+=`<td class="${cls}" title="a${i+1},${j+1}=${value}">${f(value,3)}</td>`;
+  }
+  html+=`<td class="rhs" title="b${i+1}=${B[i]}">${f(B[i],3)}</td></tr>`;
+ }
+ html+='</tbody></table>';
+ $('#matrix').innerHTML=html;
+}
+function updateStats(){
+ const {system,gauss,jacobi:j,seidel:s,dominance}=current;
+ $('#st-n').textContent=`${selected} × ${selected}`;
+ $('#st-d').textContent=custom.has(k(selected,d))?'Користувацька система':`d = ${d===1?'1':'0,1'}`;
+ $('#st-g').textContent=sci(gauss.residual);
+ $('#st-j').textContent=j.iterations;
+ $('#st-jstatus').textContent=j.converged?'Досягнуто ε':'Ліміт / розбіжність';
+ $('#st-s').textContent=s.iterations;
+ $('#st-sstatus').textContent=s.converged?'Досягнуто ε':'Ліміт / розбіжність';
+ const diag=diagonalDominance(system.A);
+ if(diag.strict)message(`Матриця має строгу діагональну перевагу. Мінімальний запас: ${f(diag.minMargin,4)}. Якобі та Зейдель збігаються.`);
+ else message('Строгої діагональної переваги немає: збіжність ітераційних методів не гарантована. Перевірте статус і результати.','warn');
+}
+function updatePlots(){
+ for(const n of sizes){
+  const r=model(n);
+  const conv=$(`[data-card="conv-${n}"]`),sol=$(`[data-card="sol-${n}"]`);
+  drawConvergence(conv.querySelector('.plot-wrap'),r.jacobi,r.seidel,{small:true});
+  drawSolutions(sol.querySelector('.plot-wrap'),r,{small:true});
+  conv.style.borderColor=sol.style.borderColor=n===selected?'#a99ff0':'#e4e9f2';
+ }
+}
+function updateResults(){
+ const arr=[];
+ for(const n of sizes)for(const di of [1,.1]){
+  const m=model(n,di);
+  for(const r of [m.gauss,m.jacobi,m.seidel]){
+   arr.push(`<tr class="${n===selected&&di===d?'focus':''}"><td>${n}</td><td>${di===1?'1':'0,1'}</td><td>${r.method}</td><td>${r.method==='Гаусс'?'—':r.iterations}</td><td>${sci(r.residual)}</td><td>${sci(r.error)}</td><td>${f(r.timeMs,4)}</td><td class="${r.converged?'ok':'bad'}">${r.converged?'✓':'Не збігся'}</td></tr>`);
+  }
+ }
+ $('#results').innerHTML=arr.join('');
+}
+function methodTrace(){
+ const method=$('#anim-method').value;
+ if(method==='gauss')return current.gauss.steps;
+ return (method==='jacobi'?current.jacobi:current.seidel).history;
+}
+function refreshFrame(){
+ const method=$('#anim-method').value;
+ const seq=methodTrace(),s=seq[Math.min(seq.length-1,frameIndex)];
+ if(method==='gauss'){
+  renderMatrix(s);
+  $('#matrix-status').textContent=`Гаусс · ${s?.type??'початок'}`;
+  $('#step-label').textContent=`Крок ${frameIndex+1}/${seq.length}: ${s?.note??''}`;
+  updatePlots();
+ }else {
+  renderMatrix();
+  $('#matrix-status').textContent=`${method==='jacobi'?'Якобі':'Зейдель'} · ітерація ${s?.iteration??0}`;
+  const sol=s?.x||[];
+  $('#step-label').textContent=`Ітерація ${s.iteration}; ‖Ax−b‖₂ = ${sci(s.residual)}; x = [${sol.slice(0,Math.min(4,sol.length)).map(x=>f(x,3)).join('; ')}${sol.length>4?'; …':''}]`;
+  const r=method==='jacobi'?current.jacobi:current.seidel;
+  const partial=r.history.slice(0,frameIndex+1);
+  const partialJ=method==='jacobi'?partial:null,partialS=method==='seidel'?partial:null;
+  // Автомасштабування під час анімації за поточними значеннями активних кривих.
+  const c=$(`[data-card="conv-${selected}"] .plot-wrap`),v=$(`[data-card="sol-${selected}"] .plot-wrap`);
+  drawConvergence(c,current.jacobi,current.seidel,{small:true,partialJ:partialJ??current.jacobi.history,partialS:partialS??current.seidel.history});
+  drawSolutions(v,current,{small:true,shown:{[method]:sol}});
+ }
+}
+function stop(){playToken++;playing=false;if($('#play'))$('#play').textContent='▶ Відтворити';}
+function resetFrame(){stop();frameIndex=0;refreshFrame();}
+function nextFrame(){
+ const seq=methodTrace();
+ if(frameIndex<seq.length-1)frameIndex++;
+ refreshFrame();
+}
+function animate(){
+ if(playing){stop();return;}
+ const seq=methodTrace();if(frameIndex>=seq.length-1)frameIndex=0;
+ playing=true;const mine=++playToken;$('#play').textContent='Ⅱ Пауза';
+ let last=0;
+ function tick(ts){
+  if(mine!==playToken)return;
+  if(!last||ts-last>=Number($('#speed').value)){
+   nextFrame();last=ts;
+   if(frameIndex>=seq.length-1){stop();return;}
+  }
+  requestAnimationFrame(tick);
+ }
+ requestAnimationFrame(tick);
+}
+function updateAll(){
+ updateSizeButtons();updateStats();updatePlots();updateResults();frameIndex=0;refreshFrame();
+}
+$('#sizes').addEventListener('click',e=>{
+ const b=e.target.closest('button[data-size]');if(!b)return;
+ stop();selected=Number(b.dataset.size);current=model(selected);updateAll();
+});
+$('#dominance').addEventListener('change',e=>{d=Number(e.target.value);current=model(selected);updateAll();});
+$('#run').addEventListener('click',()=>{try{computeAll();}catch(e){message(e.message,'error');}});
+$('#generate').addEventListener('click',()=>{custom.clear();$('#json-input').value='';$('#json-error').textContent='';try{computeAll();}catch(e){message(e.message,'error');}});
+$('#anim-method').addEventListener('change',resetFrame);
+$('#play').addEventListener('click',animate);
+$('#next').addEventListener('click',()=>{stop();nextFrame();});
+$('#reset').addEventListener('click',resetFrame);
+$('#fill-json').addEventListener('click',()=>{$('#json-input').value=JSON.stringify(getSystem(selected),null,2);});
+$('#load-json').addEventListener('click',()=>{
+  try{
+   const data=parseImportedText($('#json-input').value);
+   selected=data.n;
+   custom.set(k(selected,d),data);
+   $('#json-error').textContent='Власні дані застосовано.';
+   computeAll();
+  }catch(e){$('#json-error').textContent=`Помилка: ${e.message}`;}
+});
+$('#file-input').addEventListener('change',async e=>{
+ const file=e.target.files?.[0];if(!file)return;
+ try{$('#json-input').value=await file.text();$('#json-error').textContent=`Завантажено ${file.name}. Натисніть «Застосувати дані».`;}
+ catch(err){$('#json-error').textContent=err.message;}
+});
+$('#zero-pivot').addEventListener('click',()=>{
+ try{
+  const sample=generateSystem(5,1),z=makeZeroPivotCase(sample);
+  let err='';try{gaussWithoutPivot(z);}catch(e){err=e.message;}
+  const fixed=gaussPivot(z);
+  $('#zero-result').innerHTML=`<strong>До виправлення:</strong> ${err||'збою не виявлено'}<div class="divider"></div><strong>Після додавання вибору головного елемента:</strong> перестановок рядків = ${fixed.swaps}; ‖Ax−b‖₂ = ${sci(fixed.residual)}; ‖x−x*‖₂ = ${sci(fixed.error)}.`;
+ }catch(e){$('#zero-result').textContent=`Помилка: ${e.message}`;}
+});
+$('#export').addEventListener('click',()=>{
+ const lines=['n;d;Метод;Ітерації;Невязка_L2;Похибка_L2;Час_мс;Збіжність'];
+ for(const n of sizes)for(const di of [1,.1]){
+  const m=model(n,di);
+  for(const r of [m.gauss,m.jacobi,m.seidel])lines.push([n,di,r.method,r.iterations,r.residual,r.error??'',r.timeMs,r.converged?'так':'ні'].join(';'));
+ }
+ const blob=new Blob(['\uFEFF'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='LR2_Slar_metrics_variant1.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+});
+try{computeAll();}catch(e){message(e.message,'error');}
+
+</script></body></html>

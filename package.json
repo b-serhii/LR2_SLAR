@@ -1,0 +1,12 @@
+{
+  "name": "lr2-slar-variant1",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ЛР № 2. Гаусс із вибором головного елемента, Якобі та Зейдель; варіант 1",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "results": "node scripts/generate_results.mjs",
+    "start": "python3 -m http.server 8000"
+  }
+}

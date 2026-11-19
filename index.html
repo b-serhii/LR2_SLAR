@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ЛР № 2 — розв’язання СЛАР методом Гаусса, Якобі, Зейделя; варіант 1.">
+  <title>ЛР № 2 · Методи розв’язання СЛАР</title>
+  <link rel="stylesheet" href="./src/style.css">
+  <script type="module" defer src="./src/app.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="top-inner"><div class="symbol">Ax</div><div class="brand">Лабораторна робота № 2<small>Прямі та ітераційні методи · Варіант 1</small></div><div class="top-spacer"></div><span class="top-meta">Бойог Сергій Степанович</span></div></header>
+<main class="container">
+  <section class="intro"><div><p class="eyebrow">ІНТЕРАКТИВНА ЧИСЕЛЬНА ЛАБОРАТОРІЯ</p><h1>Розв’язання систем лінійних рівнянь</h1><p class="lead">Метод Гаусса з вибором головного елемента, методи Якобі та Зейделя.</p></div><div class="formula-bubble" aria-hidden="true">Ax = b</div></section>
+  <section class="controlbar" aria-label="Керування обчисленнями">
+    <div class="control"><label>Розмір матриці</label><div class="segmented" id="sizes" role="group" aria-label="Розмір системи"><button class="seg active" data-size="5" aria-pressed="true">5×5</button><button class="seg" data-size="10" aria-pressed="false">10×10</button><button class="seg" data-size="20" aria-pressed="false">20×20</button></div></div>
+    <div class="control"><label for="dominance">Діагональна перевага d</label><select id="dominance"><option value="1">d = 1</option><option value="0.1">d = 0,1</option></select></div>
+    <div class="control"><label for="eps">Точність ε</label><select id="eps"><option value="1e-6">10⁻⁶</option><option value="1e-8">10⁻⁸</option><option value="1e-10" selected>10⁻¹⁰</option><option value="1e-12">10⁻¹²</option></select></div>
+    <div class="control"><label for="max-iters">Макс. ітерацій</label><input id="max-iters" type="number" min="20000" max="100000" step="1000" value="20000"></div>
+    <div class="actions"><button class="btn primary" id="run">Розрахувати</button><button class="btn outline" id="generate">Відновити варіант</button></div>
+  </section>
+  <div id="notice" class="alert" role="status"><strong>✓</strong><span>Для варіанта № 1 використано g(i,j) = sin(i + j) та x*i = n − i + 1 (індекси від 1).</span></div>
+  <section class="stats" aria-live="polite">
+    <article class="stat"><span>Розмір системи</span><strong id="st-n">5 × 5</strong><small id="st-d">d = 1</small></article>
+    <article class="stat"><span>Метод Гаусса · нев'язка</span><strong id="st-g">—</strong><small>‖Ax − b‖₂</small></article>
+    <article class="stat"><span>Якобі · ітерації</span><strong id="st-j">—</strong><small id="st-jstatus">Точність ε = 10⁻¹⁰</small></article>
+    <article class="stat"><span>Зейдель · ітерації</span><strong id="st-s">—</strong><small id="st-sstatus">Точність ε = 10⁻¹⁰</small></article>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><div><p>МАТРИЦЯ СИСТЕМИ</p><h2>Покрокове зведення до трикутного вигляду</h2></div><span id="matrix-status" class="tag">Початкова матриця [A | b]</span></div>
+    <div id="matrix" class="matrix-shell" role="region" aria-label="Матриця та головні елементи"></div>
+    <div class="stepbar"><label class="hint" for="anim-method">Анімація</label><select id="anim-method"><option value="gauss">Гаусс</option><option value="jacobi">Якобі</option><option value="seidel">Зейдель</option></select><button class="btn purple" id="play">▶ Відтворити</button><button class="btn outline" id="next">Наступний крок</button><button class="btn outline" id="reset">↺ Початок</button><div id="step-label" class="step-label">Оберіть метод і запустіть анімацію</div><label class="hint" for="speed">Швидкість</label><select id="speed"><option value="350">Швидко</option><option value="650" selected>Звичайна</option><option value="1050">Повільно</option></select></div>
+    <p class="helper">Під час Гаусса виділяється головний елемент і показано перестановку/виключення. Для Якобі та Зейделя відображаються поточні наближення x та норма нев'язки.</p>
+  </section>
+  <section class="section-title"><p class="eyebrow">ПОРІВНЯННЯ 3 × 2</p><h2>Шість графіків</h2><p>Три графіки збіжності у логарифмічному масштабі та три графіки компонент розв’язку. Перемикайте d для аналізу впливу діагональної переваги.</p></section>
+  <section id="plot-grid" class="plot-grid" aria-label="Шість графіків">
+    <article class="plot-card" data-card="conv-5"><h3>Збіжність · 5 рівнянь</h3><p class="sub">Логарифм ‖Ax − b‖ за ітераціями</p><div class="plot-wrap"></div></article>
+    <article class="plot-card" data-card="sol-5"><h3>Розв’язок · 5 рівнянь</h3><p class="sub">Компоненти xᵢ трьома методами і x*</p><div class="plot-wrap"></div></article>
+    <article class="plot-card" data-card="conv-10"><h3>Збіжність · 10 рівнянь</h3><p class="sub">Логарифм ‖Ax − b‖ за ітераціями</p><div class="plot-wrap"></div></article>
+    <article class="plot-card" data-card="sol-10"><h3>Розв’язок · 10 рівнянь</h3><p class="sub">Компоненти xᵢ трьома методами і x*</p><div class="plot-wrap"></div></article>
+    <article class="plot-card" data-card="conv-20"><h3>Збіжність · 20 рівнянь</h3><p class="sub">Логарифм ‖Ax − b‖ за ітераціями</p><div class="plot-wrap"></div></article>
+    <article class="plot-card" data-card="sol-20"><h3>Розв’язок · 20 рівнянь</h3><p class="sub">Компоненти xᵢ трьома методами і x*</p><div class="plot-wrap"></div></article>
+  </section>
+  <div class="legend"><span><i class="dash exact"></i>Точний розв'язок x*</span><span><i class="dash gauss"></i>Гаусс</span><span><i class="dash jacobi"></i>Якобі</span><span><i class="dash seidel"></i>Зейдель</span></div>
+  <section class="panel" style="margin-top:18px"><div class="panel-head"><div><p>АНАЛІТИЧНЕ ТЕСТУВАННЯ</p><h2>Порівняння методів і діагональної переваги</h2></div><button class="btn outline small" id="export">↓ Завантажити CSV</button></div><div class="table-wrap"><table class="table"><thead><tr><th>n</th><th>d</th><th>Метод</th><th>Ітерації</th><th>‖Ax−b‖₂</th><th>‖x−x*‖₂</th><th>Час, мс</th><th>Статус</th></tr></thead><tbody id="results"></tbody></table></div><p class="helper">Час залежить від браузера й пристрою. Розрахунок за ‖Ax−b‖₂ ≤ ε; «—» у похибці означає, що для імпортованої системи x* невідомий.</p></section>
+  <section class="two-cols">
+    <article class="panel"><div class="panel-head"><div><p>ВЛАСНІ ДАНІ</p><h2>Ввести або завантажити A та b</h2></div><button class="btn outline small" id="fill-json">Заповнити з поточної</button></div><p class="muted">Формат JSON з масивами A (матриця n×n), b (n елементів), необов'язковий xStar. Підтримуються n = 5, 10, 20.</p><textarea id="json-input" spellcheck="false" placeholder='{"A": [[...]], "b": [...], "xStar": [...]}'></textarea><div class="stepbar"><input id="file-input" type="file" accept=".json,application/json"><button class="btn primary" id="load-json">Застосувати дані</button></div><p id="json-error" class="helper" role="alert"></p></article>
+    <article class="panel"><div class="panel-head"><div><p>КРИТИЧНИЙ АНАЛІЗ AI</p><h2>Нульовий головний елемент</h2></div></div><p class="muted">Перевірка вимоги методички: у математично еквівалентній системі створюється a₁₁ = 0. Наївний Гаусс без вибору головного елемента не може продовжити обчислення, а алгоритм із перестановкою рядків працює.</p><button class="btn purple" id="zero-pivot">Показати збій і виправлення</button><div class="divider"></div><div id="zero-result" class="helper">Натисни кнопку для запуску експерименту.</div><p class="helper">Для sin(i+j) проста перестановка перших двох рядків не гарантує a₁₁ = 0, тому використано еквівалентне елементарне перетворення рядка.</p></article>
+  </section>
+  <footer><span>Лабораторна робота № 2 · Варіант 1 · Бойог Сергій Степанович</span><span>Чисельні методи · JavaScript · SVG · без бібліотечних розв’язувачів</span></footer>
+</main>
+</body></html>
